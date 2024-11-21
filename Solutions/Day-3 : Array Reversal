@@ -1,0 +1,62 @@
+Array Reversal
+Difficulty: Easy
+Accuracy: Varies
+Submissions: Varies
+Points: Varies
+
+Given an array of integers arr[], the task is to reverse the array in place. The array should be reversed using standard methods in C++.
+
+Solution
+To reverse the array, we can use a few methods. Below is a simple approach using two-pointer technique, which swaps the elements from both ends of the array until the middle is reached.
+
+Here is the solution in C++:
+
+cpp
+Copy code
+class Solution {
+public:
+    // Function to reverse an array in place
+    void reverseArr(vector<int>& arr) {
+        int left = 0;
+        int right = arr.size() - 1;
+        
+        // Step 1: Swap the elements from both ends
+        while (left < right) {
+            swap(arr[left], arr[right]);
+            left++;
+            right--;
+        }
+    }
+};
+Explanation:
+Two-pointer technique:
+We initialize two pointers, left and right. The left pointer starts at the beginning of the array and the right pointer starts at the end.
+
+Swapping Elements:
+The elements at the left and right indices are swapped. Then, we move the left pointer one step to the right and the right pointer one step to the left, and continue the process until the two pointers meet in the middle.
+
+In-place Reversal:
+This approach modifies the original array directly without needing any extra space (besides a few variables), making it efficient.
+
+Using reverse from the vector library
+Alternatively, if you want to use C++’s built-in reverse() function, here's how you can do it:
+
+cpp
+Copy code
+#include <algorithm>  // for std::reverse
+#include <vector>
+
+class Solution {
+public:
+    // Function to reverse an array using std::reverse
+    void reverseArr(vector<int>& arr) {
+        // Step 1: Use the built-in reverse function to reverse the array
+        reverse(arr.begin(), arr.end());
+    }
+};
+Explanation:
+std::reverse():
+The function std::reverse() reverses the elements of the array in place. It operates on iterators, so arr.begin() refers to the first element and arr.end() refers to one past the last element. It is efficient and convenient.
+Time Complexity:
+O(n) where n is the number of elements in the array.
+Both methods involve iterating through the array once, so the time complexity remains linear.
