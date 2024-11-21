@@ -1,0 +1,71 @@
+Array Rotation (Counter-Clockwise)
+Difficulty: Medium
+Accuracy: Varies
+Submissions: Varies
+Points: Varies
+
+Given an unsorted array arr[], the task is to rotate the array to the left (counter-clockwise direction) by d steps, where d is a positive integer. Perform the operation in place.
+
+Note: Consider the array as circular.
+
+Solution
+To rotate the array to the left by d steps efficiently in place, we can break the problem into three main parts:
+
+Normalize the rotation steps (d):
+If d is greater than the length of the array, rotating by d steps is equivalent to rotating by d % n steps, where n is the size of the array.
+
+Store the first d elements:
+Temporarily store the first d elements in a separate container, as these will be shifted to the end.
+
+Shift the remaining elements:
+Move the elements from index d to the end of the array to the left by d positions.
+
+Reinsert the stored elements:
+Finally, place the stored elements at the end of the array.
+
+Here is the solution in C++:
+
+cpp
+Copy code
+class Solution {
+public:
+    // Function to rotate an array by d elements in counter-clockwise direction.
+    void rotateArr(vector<int>& arr, int d) {
+        if (arr.empty()) return;  // Do nothing if the array is empty
+        
+        d = d % arr.size();  // Normalize d to prevent unnecessary full rotations
+        
+        vector<int> shift(d);
+        
+        // Step 1: Store the first 'd' elements in the 'shift' vector
+        for (int i = 0; i < d; i++) {
+            shift[i] = arr[i];
+        }
+        
+        // Step 2: Shift the remaining elements to the left
+        for (int i = 0; i < arr.size() - d; i++) {
+            arr[i] = arr[i + d];
+        }
+        
+        // Step 3: Place the elements from 'shift' at the end of 'arr'
+        for (int i = 0; i < d; i++) {
+            arr[arr.size() - d + i] = shift[i];
+        }
+    }
+};
+Explanation:
+Normalization of d:
+We first handle cases where d exceeds the array size by taking d % arr.size(). This ensures that we don’t perform unnecessary full rotations.
+
+Temporary Storage (shift vector):
+The first d elements are stored in a temporary array shift to facilitate the rotation.
+
+Shifting Elements:
+The elements from index d to the end of the array are shifted to the left by d positions.
+
+Reinsert Stored Elements:
+Finally, we place the stored d elements at the end of the array to complete the rotation.
+
+Time Complexity:
+O(n) where n is the number of elements in the array.
+We iterate over the array three times: once to store the elements, once to shift the rest, and once to reinsert the stored elements.
