@@ -1,0 +1,54 @@
+Move Zeros to End
+Difficulty: Medium
+Accuracy: Varies
+Submissions: Varies
+Points: Varies
+
+Given an array arr[], the task is to move all the zeros to the right end of the array while maintaining the order of non-zero elements. The operation should be performed in place, meaning that we cannot use extra space for another array.
+
+Solution
+We can solve this problem efficiently in O(n) time complexity by using the two-pointer technique. The idea is to maintain a pointer for the position where the next non-zero element should be placed and iterate through the array. If the current element is non-zero, we move it to the appropriate position.
+
+Here is the updated code:
+
+cpp
+Copy code
+class Solution {
+public:
+    void pushZerosToEnd(vector<int>& arr) {
+        int n = arr.size();
+        int index = 0;
+        
+        // Step 1: Move all non-zero elements to the front
+        for (int i = 0; i < n; i++) {
+            if (arr[i] != 0) {
+                arr[index] = arr[i];  // Place non-zero element at the 'index'
+                index++;
+            }
+        }
+        
+        // Step 2: Fill the remaining positions with zeros
+        while (index < n) {
+            arr[index] = 0;
+            index++;
+        }
+    }
+};
+Explanation:
+Pointer for Non-zero Elements (index):
+We initialize index to 0, which will be used to place the non-zero elements in the correct position.
+
+First Loop (Move Non-Zero Elements):
+In the first loop, we iterate through the array and every time we encounter a non-zero element, we place it at the current index and increment index.
+
+Second Loop (Fill with Zeros):
+Once all non-zero elements have been moved to the front, we fill the remaining positions in the array (from index to the end) with zeros.
+
+In-Place Operation:
+This approach ensures that no extra space is used, and the array is modified in place.
+
+Time Complexity:
+O(n) where n is the number of elements in the array.
+We iterate through the array once to move non-zero elements and once more to fill zeros.
+Space Complexity:
+O(1) since the solution only uses a constant amount of extra space (i.e., the index variable), which is in-place.
