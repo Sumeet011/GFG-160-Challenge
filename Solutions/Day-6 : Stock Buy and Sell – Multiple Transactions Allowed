@@ -1,0 +1,71 @@
+🌟 Stock Buy and Sell – Multiple Transactions Allowed 🌟
+📌 Problem Statement
+The cost of stock on each day is given in an array price[]. Each day, you may decide to either:
+
+Buy the stock at price[i]
+Sell the stock at price[i]
+Or do nothing.
+You can buy and sell stocks on the same day, but a stock can only be sold if it has been bought previously. Additionally, you cannot hold multiple stocks on any given day. Your goal is to find the maximum profit you can achieve.
+
+🛠️ Constraints
+Difficulty: Hard
+Accuracy: 13.43%
+Submissions: 119K+
+Points: 8
+💡 Solution
+cpp
+Copy code
+class Solution {
+public:
+    int maximumProfit(vector<int> &arr) {
+        int ans = 0;
+        for (int i = 1; i < arr.size(); i++) {
+            if (arr[i] > arr[i - 1]) {
+                ans += arr[i] - arr[i - 1];
+            }
+        }
+        return ans;
+    }
+};
+🔍 Explanation
+Key Insight: To maximize profit, capture every increase in stock prices (buy low, sell high).
+Approach:
+Traverse the array starting from the second day (i = 1).
+If the stock price on the current day (arr[i]) is greater than the previous day's price (arr[i-1]):
+Add the profit (arr[i] - arr[i-1]) to the total profit ans.
+Return the total profit at the end of the loop.
+⏱️ Complexity
+Time Complexity: 
+𝑂
+(
+𝑛
+)
+O(n), where 
+𝑛
+n is the size of the array.
+Space Complexity: 
+𝑂
+(
+1
+)
+O(1), as no extra space is used.
+✨ Example
+Input:
+price[] = {1, 5, 3, 8, 12}
+
+Output:
+13
+
+Explanation:
+
+Buy at 1, sell at 5 → Profit: 5 - 1 = 4
+Buy at 3, sell at 8 → Profit: 8 - 3 = 5
+Buy at 8, sell at 12 → Profit: 12 - 8 = 4
+Total Profit: 4 + 5 + 4 = 13
+This greedy approach ensures maximum profit by leveraging every price increase.
+
+
+
+
+
+
