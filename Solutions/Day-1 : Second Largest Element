@@ -1,0 +1,56 @@
+Second Largest Element
+Difficulty: Medium
+Accuracy: Varies
+Submissions: Varies
+Points: Varies
+
+Given an array arr[] of positive integers, the task is to return the second largest element in the array. If the second largest element doesn't exist, return -1.
+
+Solution
+To solve this problem efficiently in O(n) time complexity, we can iterate through the array once and keep track of the largest and second largest elements. This avoids sorting the array and ensures the solution is optimal for large arrays.
+
+Here’s the updated solution in C++:
+
+cpp
+Copy code
+class Solution {
+public:
+    int getSecondLargest(vector<int>& arr) {
+        int n = arr.size();
+        
+        // Edge case: if the array has fewer than 2 elements
+        if (n < 2) return -1;
+        
+        // Initialize two variables to track the largest and second largest elements
+        int largest = INT_MIN;
+        int secondLargest = INT_MIN;
+        
+        for (int num : arr) {
+            if (num > largest) {
+                secondLargest = largest;
+                largest = num;
+            } else if (num > secondLargest && num < largest) {
+                secondLargest = num;
+            }
+        }
+        
+        return secondLargest == INT_MIN ? -1 : secondLargest;
+    }
+};
+Explanation:
+Edge Case:
+If the array has fewer than 2 elements, return -1 because there can't be a second largest element.
+
+Track Largest and Second Largest:
+
+Initialize largest and secondLargest to the smallest possible value (INT_MIN).
+Iterate through the array:
+If the current number is greater than the largest, update secondLargest to the previous largest and set largest to the current number.
+If the current number is smaller than the largest but greater than the second largest, update secondLargest with the current number.
+Return Result:
+After the loop, if secondLargest remains INT_MIN, it means there was no second largest element, so return -1. Otherwise, return secondLargest.
+
+Time Complexity:
+O(n) where n is the number of elements in the array. We only need one pass through the array.
+Space Complexity:
+O(1) since we only use a constant amount of extra space.
