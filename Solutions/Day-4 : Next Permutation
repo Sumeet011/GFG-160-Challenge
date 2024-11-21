@@ -1,0 +1,68 @@
+Next Permutation
+Difficulty: Medium
+Accuracy: 40.66%
+Submissions: 161K+
+Points: 4
+
+Given an array of integers arr[] representing a permutation, the task is to implement the next permutation that rearranges the numbers into the lexicographically next greater permutation. If no such permutation exists, rearrange the numbers into the lowest possible order (i.e., sorted in ascending order).
+
+A permutation of an array is a specific arrangement of its elements in a sequence.
+
+Solution
+To generate the next permutation, we follow a series of steps:
+
+Find the first decreasing element from the right end.
+Swap it with the smallest element that is greater than it.
+Reverse the remaining elements to get the next permutation.
+If no such next permutation is possible, this means the array is sorted in descending order, and we should return the array sorted in ascending order.
+
+Here is the solution in C++:
+
+cpp
+Copy code
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int n = nums.size();
+        int i = n - 2;
+
+        // Step 1: Find the first decreasing element from the end
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
+            i--;
+        }
+
+        // Step 2: If such an element is found, find the next larger element and swap
+        if (i >= 0) {
+            int j = n - 1;
+            while (nums[j] <= nums[i]) {
+                j--;
+            }
+            swap(nums[i], nums[j]);
+        }
+
+        // Step 3: Reverse the elements to the right of i to get the smallest lexicographical order
+        reverse(nums.begin() + i + 1, nums.end());
+
+        // If no such permutation was found, the array is sorted in descending order, so sort it in ascending order
+        if (i == -1) {
+            sort(nums.begin(), nums.end());
+        }
+    }
+};
+Explanation:
+Identify the First Decreasing Element:
+We start from the end of the array and look for the first element that is smaller than the element immediately after it. This marks the point where the permutation can be increased.
+
+Find the Next Larger Element:
+Once we find such an element, we search for the smallest element that is greater than the identified element and swap them.
+
+Reverse the Subarray:
+After swapping, we reverse the subarray to the right of the identified element to ensure we get the smallest possible arrangement of those elements, forming the next permutation.
+
+Handle Edge Case:
+If no such element is found (i.e., the array is in descending order), we simply sort the array to return the smallest permutation.
+
+Time Complexity:
+O(n) where n is the number of elements in the array.
+Finding the first decreasing element and the next larger element both take linear time.
+Reversing the subarray also takes linear time.
