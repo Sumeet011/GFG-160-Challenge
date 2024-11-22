@@ -1,0 +1,72 @@
+
+📈 Stock Buy and Sell – Max One Transaction Allowed
+Difficulty: 🌟 Easy
+Accuracy: 49.33%
+Submissions: 🧑‍💻 17K+
+Points: 🎯 2
+
+📝 Problem Statement:
+You are given an array prices[] of length n, where each element represents the price of stocks on a specific day. Your task is to determine the maximum profit that can be made by buying and selling stocks when at most one transaction is allowed.
+
+A transaction consists of 1 buy and 1 sell. If no profit can be made, return 0.
+
+Note:
+
+Stocks must be bought before being sold.
+🚀 Solution (C++ Code):
+cpp
+Copy code
+class Solution {
+  public:
+    int maximumProfit(vector<int> &prices) {
+        // Initialize minimum price to the first day and max profit to 0
+        int minPrice = prices[0];
+        int maxProfit = 0;
+
+        // Traverse through the array
+        for (int i = 1; i < prices.size(); i++) {
+            // Update maxProfit if current price - minPrice yields higher profit
+            if (prices[i] > minPrice) {
+                maxProfit = max(maxProfit, prices[i] - minPrice);
+            }
+            // Update minPrice to the smallest value encountered so far
+            minPrice = min(minPrice, prices[i]);
+        }
+
+        return maxProfit; // Return the maximum profit found
+    }
+};
+💡 Explanation:
+Track the Minimum Price:
+Maintain the lowest price encountered so far (minPrice).
+
+Calculate Potential Profit:
+For every day's price, calculate the potential profit by subtracting minPrice from the current price.
+
+Update Maximum Profit:
+Compare the calculated profit with the current maxProfit and update if it's higher.
+
+Return the Result:
+Return the highest profit found during the traversal.
+
+🧪 Example:
+Input	Output
+prices = [7, 1, 5, 3, 6, 4]	5
+prices = [7, 6, 4, 3, 1]	0
+Explanation:
+
+Example 1: Buy on day 2 (price = 1) and sell on day 5 (price = 6). Profit = 6 - 1 = 5.
+Example 2: No profitable transaction is possible, so the output is 0.
+🛠️ Complexity Analysis:
+Time Complexity: O(n) – Single traversal through the array.
+Space Complexity: O(1) – No extra space used.
+📊 Key Takeaways:
+The problem can be solved efficiently using a greedy approach.
+Always check for the smallest price first to maximize the profit.
+Let me know if you'd like further visualizations or optimizations! 😊
+
+
+
+
+
+
