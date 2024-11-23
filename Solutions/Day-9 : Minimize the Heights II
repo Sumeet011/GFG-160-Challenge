@@ -1,0 +1,112 @@
+Minimize the Heights II
+Difficulty: Medium
+Accuracy: 15.06%
+Submissions: 622K+
+Points: 4
+
+Problem Statement
+You are given an array arr[] representing the heights of 𝑁 towers and a positive integer K. For each tower, you must perform exactly one of the following operations:
+Increase the height of the tower by K.
+Decrease the height of the tower by 𝐾.
+The goal is to find the minimum possible difference between the heights of the tallest and shortest towers after modifying each tower.
+Constraints
+It is mandatory to either increase or decrease the height of each tower by 𝐾.
+The resultant heights must not be negative.
+Example
+Input:
+mathematica
+Copy code
+N = 4, K = 2  
+arr[] = {1, 5, 8, 10}  
+Output:
+Copy code
+5  
+Explanation:
+Modify the heights as follows:
+
+Increase 1 → 3
+Decrease 10 → 8
+Decrease 8 → 6
+Increase 5 → 7
+The heights become [3, 7, 6, 8]. The difference between the tallest and shortest towers is 
+8
+−
+3
+=
+5
+8−3=5.
+
+Solution
+Approach:
+Sort the Array:
+
+Sorting helps determine possible minimum and maximum heights more easily after applying 
++
+𝐾
++K or 
+−
+𝐾
+−K operations.
+Initial Difference:
+
+Calculate the initial difference between the largest and smallest heights before any operations.
+Iterate and Adjust Heights:
+
+Traverse the array, and for each tower:
+Consider decreasing the height by 
+𝐾
+K.
+Consider increasing the height of all smaller towers by 
+𝐾
+K.
+Calculate the new tallest and shortest tower heights at each step, ensuring no height is negative.
+Update Minimum Difference:
+
+Update the minimum difference between the tallest and shortest tower heights.
+Code Implementation
+cpp
+Copy code
+class Solution {
+public:
+    int getMinDiff(vector<int>& heights, int k) {
+        int n = heights.size();
+        if (n == 1) return 0; // If there's only one tower, no difference is possible
+
+        // Sort the heights array
+        std::sort(heights.begin(), heights.end());
+
+        // Initial difference between the tallest and shortest
+        int diff = heights[n - 1] - heights[0];
+        
+        // Variables to track min and max heights
+        int min_height, max_height;
+
+        // Traverse through the array and calculate possible differences
+        for (int i = 1; i < n; i++) {
+            if (heights[i] - k < 0) continue; // Skip if decreasing leads to negative height
+            
+            // Calculate the maximum and minimum heights after modification
+            max_height = std::max(heights[i - 1] + k, heights[n - 1] - k);
+            min_height = std::min(heights[0] + k, heights[i] - k);
+
+            // Update the minimum difference
+            diff = std::min(diff, max_height - min_height);
+        }
+
+        return diff;
+    }
+};
+Complexity Analysis
+Time Complexity:
+
+Sorting the array takes O(nlogn).
+Traversing the array takes O(n).
+Overall: O(nlogn).
+Space Complexity: The algorithm uses constant extra space, so O(1).
+This efficient solution ensures all constraints are satisfied and provides the minimum height difference after modifying the towers.
+
+
+
+
+
+
