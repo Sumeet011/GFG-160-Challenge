@@ -1,0 +1,66 @@
+Given an array arr[] that contains positive, negative integers, and zeros, the task is to find the maximum product subarray.
+
+Problem Statement:
+Find the subarray within the given array arr[] that yields the maximum product of its elements.
+
+Examples:
+Input: arr = [2, 3, -2, 4]
+Output: 6
+Explanation: Subarray [2, 3] has the maximum product.
+
+Approach:
+
+Iterate through the array while maintaining a running prefix product.
+Track the maximum product observed so far.
+Use a leftmostNegative variable to handle cases where a negative product becomes positive after another negative number is encountered.
+Handle cases with zeros by resetting the prefix product.
+Solution:
+
+cpp
+Copy code
+class Solution {
+public:
+    int maxProduct(vector<int> &arr) {
+        if (arr.size() == 1) {
+            return arr[0];
+        }
+        if (arr.size() == 2) {
+            return max(arr[0], max(arr[1], arr[0] * arr[1]));
+        }
+
+        int n = arr.size();
+        int maxProduct = INT_MIN;
+        int prefixMultiply = 1;
+        int leftmostNegative = 1;
+        bool hasNegative = false;
+
+        for (int i = 0; i < n; i++) {
+            prefixMultiply *= arr[i];
+
+            if (prefixMultiply == 0) {
+                prefixMultiply = 1;
+                leftmostNegative = 1;
+                hasNegative = false;
+                continue;
+            }
+
+            if (prefixMultiply < 0) {
+                if (!hasNegative) {
+                    leftmostNegative = prefixMultiply;
+                    hasNegative = true;
+                } else {
+                    maxProduct = max(maxProduct, prefixMultiply / leftmostNegative);
+                }
+            } else {
+                maxProduct = max(maxProduct, prefixMultiply);
+            }
+        }
+
+        return maxProduct;
+    }
+};
+
+
+
+
+
