@@ -1,0 +1,41 @@
+Kadane's Algorithm
+Difficulty: Medium
+Accuracy: 36.28%
+Submissions: 1M
+Points: 4
+
+Problem Statement:
+Given an integer array arr[], find the maximum sum of a contiguous subarray.
+
+Intuition:
+The goal is to find the subarray with the maximum sum. Using Kadane's Algorithm, we efficiently solve this problem by maintaining:
+
+currentSum – the sum of the current subarray.
+maxSum – the maximum sum encountered so far.
+Approach:
+
+Start with maxSum and currentSum as the first element of the array.
+For each subsequent element, decide whether to extend the current subarray or start a new one.
+Update maxSum with the maximum value found during the iteration.
+Return maxSum.
+Solution:
+
+cpp
+Copy code
+class Solution {
+public:
+    int maxSubarraySum(vector<int> &arr) {
+        int n = arr.size();
+        if (n == 0) return 0; // Edge case: empty array
+
+        int maxSum = arr[0];
+        int currentSum = arr[0];
+
+        for (int i = 1; i < n; i++) {
+            currentSum = max(arr[i], currentSum + arr[i]);
+            maxSum = max(maxSum, currentSum);
+        }
+
+        return maxSum;
+    }
+};
