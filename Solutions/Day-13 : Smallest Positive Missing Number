@@ -1,0 +1,38 @@
+You are given an integer array arr[]. Your task is to find the smallest positive number missing from the array.
+
+Note: Positive number starts from 1. The array can have negative integers too.
+
+Solution C++:
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int m = 1;
+        sort(nums.begin(), nums.end());
+        int L = 0;
+        while (L < nums.size() && nums[L] <= 0) {
+            L++;
+        }
+        if (L == nums.size()) {
+            return 1;
+        }
+        while (L < nums.size()) {
+            bool run = false;
+            while (L < nums.size() && nums[L] == m) {
+                L++;
+                run = true;
+            }
+            if (!run) {
+                break;
+            }
+            m++;
+        }
+        return m;
+    }
+};
+auto init = []()
+{ 
+    ios::sync_with_stdio(0); // Turn off sync with C I/O streams
+    cin.tie(0);              // Untie cin and cout for faster input/output
+    cout.tie(0);             // Untie cout for faster output
+    return 'c';              // Dummy return to ensure execution
+}();
